@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Administración Libros";
+}
+@model WebTravelTest.Entities.Models.AutoresHasLibros
+<div>
+    <br /><br />
+    <h4><b>Asignar Nuevo Autor Libro ISBN: @Model.LibrosIsbn</b></h4>
+    <p>
+        @Html.ActionLink("Regresar", "Index", "AutoresLibro", new { isbn = @Model.LibrosIsbn })
+    </p>
+    @using (Html.BeginForm("CreateSubmit", "AutoresLibro", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group col-md-12">
+                    <b><div style="font-size: 16px; color: #555; text-align: left" class="control-label DivBottom col-md-6">@Html.Label("Autor") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.DropDownList("AutoresId", (SelectList)ViewBag.AutoresList, new { @class = "form-control", @id = "AutorId", @style = "font-weight: normal !important", @autocomplete = "off" })
+                        <medium>@Html.ValidationMessageFor(m => m.AutoresId, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: left; width: 100%; padding-top: 30px; margin-left: 20px; margin-top: 20px">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.LibrosIsbn)
+        @if (!string.IsNullOrEmpty(@ViewBag.MensajeExito))
+        {
+            <p class="alert alert-success" id="successMessage">@ViewBag.MensajeExito</p>
+        }
+    }
+</div>

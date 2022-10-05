@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Administración Libros";
+}
+@model WebTravelTest.Entities.Models.Libros
+<div>
+    <br /><br />
+    <h4>Crear Libro</h4>
+    <p>
+        @Html.ActionLink("Regresar", "Index", "Libros")
+    </p>
+    @using (Html.BeginForm("CreateSubmit", "Libros", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group col-md-12">
+                    <b><div style="font-size:16px;color: #555;text-align: left" class="control-label DivBottom col-md-6">@Html.Label("ISBN") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Isbn, new
+                        {
+                            id = "Isbn",
+                            type = "number",
+                            min = 1,
+                            maxlength = "13",
+                            max = 9999999999999,
+                            @class = "form-control",
+                            @title = "",
+                            @style = "font-weight: normal !important",
+                            @autocomplete = "off",
+                       oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                        })
+                        <medium>@Html.ValidationMessageFor(m => m.Isbn, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" style="padding-top: 30px; margin-top: 30px ">
+                    <b><div style="font-size: 16px; color: #555; text-align: left" class="control-label DivBottom col-md-6">@Html.Label("Editorial") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.DropDownList("EditorialesId", (SelectList)ViewBag.EditorialesList, new { @class = "form-control", @id = "Editorial", @style = "font-weight: normal !important", @autocomplete = "off" })
+                        <medium>@Html.ValidationMessageFor(m => m.EditorialesId, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" style="padding-top: 30px; margin-top: 30px ">
+                    <b><div style="font-size: 16px; color: #555; text-align: left" class="control-label DivBottom col-md-6">@Html.Label("Titulo") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Titulo, new { maxlength = "45", id = "Titulo", @class = "form-control", @title = "", @style = "font-weight: normal !important", @autocomplete = "off", oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" })
+                        <medium>@Html.ValidationMessageFor(m => m.Titulo, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" style="padding-top: 30px; padding-bottom: 30px; margin-top: 30px">
+                    <b><div style="font-size: 16px; color: #555; text-align: left" class="control-label DivBottom col-md-6">@Html.Label("Sinopsis") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(m => m.Sinopsis, new { id = "Sinopsis", @class = "form-control", @title = "", @style = "font-weight: normal !important; height: 100%;", @autocomplete = "off", @rows = 4 })
+                        <medium>@Html.ValidationMessageFor(m => m.Sinopsis, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group col-md-12" style="padding-top: 30px; margin-top: 30px ">
+                    <b><div cstyle="font-size: 16px; color: #555; text-align: left" class="control-label DivBottom col-md-6">@Html.Label("Número Paginas") <i class="text-danger glyphicon-asterisk"></i></div></b>
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.NPaginas, new
+                        {
+                            id = "NPaginas",
+                            @class = "form-control",
+                            type = "number",
+                            min = 1,
+                            max = int.MaxValue,
+                            maxlength = "10",
+                            @title = "",
+                            @style = "font-weight: normal !important",
+                            @autocomplete = "off",
+                       oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                   })
+                        <medium>@Html.ValidationMessageFor(m => m.NPaginas, string.Empty, new { @class = "text-danger" })</medium>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" style="text-align: left; width: 100%; padding-top: 30px; margin-left: 10px; margin-top: 20px">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+        @if (!string.IsNullOrEmpty(@ViewBag.MensajeExito))
+        {
+            <p class="alert alert-success" id="successMessage">@ViewBag.MensajeExito</p>
+        }
+    }
+</div>

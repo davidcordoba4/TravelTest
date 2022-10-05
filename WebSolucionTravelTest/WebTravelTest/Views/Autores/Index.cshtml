@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Administración Libros";
+}
+@model List<WebTravelTest.Entities.Models.Autores>
+@Html.AntiForgeryToken()
+<div class="text-center">
+    <br /><br />
+          <h4>Autores</h4>
+    <p>
+        @Html.ActionLink("Crear Nuevo Autor", "Create", "Autores")
+    </p>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger", @style= "text-align: left;" })
+    <table style="table-layout: fixed;" width="100%" border="1">
+        <tr>
+            <td width="35%">
+                <h5><b>Nombre</b></h5>
+            </td>
+            <td width="35%">
+                <h5><b>Apellidos</b></h5>
+            </td>
+            <td width="30%">
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Nombre 
+                </td>
+                <td>
+                    @item.Apellidos
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "Autores", new { id = item.Id })" onclick = "return confirm('Está seguro de eliminar este registro?');">Borrar</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

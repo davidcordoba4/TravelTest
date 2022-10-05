@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Administración Libros";
+}
+@model List<WebTravelTest.Entities.Models.Libros>
+@Html.AntiForgeryToken()
+<div class="text-center">
+    <h2><b>Bienvenido</b></h2>
+    <br /><br />
+    <h4>Libros</h4>
+    <p>
+        @Html.ActionLink("Crear Nuevo Libro", "Create", "Libros")
+    </p>
+    @Html.ValidationSummary(false, "", new { @class = "text-danger", @style = "text-align: left;" })
+    <table style="table-layout: fixed;" width="100%" border="1">
+        <tr>
+            <td width="13%">
+                <h5><b>ISBN</b></h5>
+            </td>
+            <td width="13%">
+                <h5><b>Nombre Editorial</b></h5>
+            </td>
+            <td width="13%">
+                <h5><b>Sede Editorial</b></h5>
+            </td>
+            <td width="13%">
+                <h5><b>Titulo</b></h5>
+            </td>
+            <td width="15%">
+                <h5><b>Sinopsis</b></h5>
+            </td>
+            <td width="13%">
+                <h5><b>Número de Paginas</b></h5>
+            </td>
+            <td width="20%">
+            </td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Isbn
+                </td>
+                <td>
+                    @item.Editoriales.Nombre
+                </td>
+                <td>
+                    @item.Editoriales.Sede
+                </td>
+                <td>
+                    @item.Titulo
+                </td>
+                <td style="word-wrap: break-word;">
+                    @item.Sinopsis
+                </td>
+                <td>
+                    @item.NPaginas
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "Libros", new { isbn = item.Isbn })" onclick="return confirm('Está seguro de eliminar este registro?');">Borrar</a> |
+                    <a href="@Url.Action("Index", "AutoresLibro", new { isbn = item.Isbn })">Consultar Autores Libro</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
